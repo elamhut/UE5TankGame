@@ -21,6 +21,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UStaticMeshComponent> TurretMesh;
 
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
@@ -28,9 +31,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UStaticMeshComponent> BaseMesh;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UStaticMeshComponent> TurretMesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USceneComponent> ProjectileSpawnPoint;
