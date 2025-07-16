@@ -24,6 +24,7 @@ protected:
 	virtual void PlayerTick(float DeltaTime) override;
 	void HandleMove(const FInputActionValue& Value);
 	void HandleTurn(const FInputActionValue& Value);
+	void HandleRotate(const FInputActionValue& Value);
 
 private:
 	UPROPERTY(EditDefaultsOnly)

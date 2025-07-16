@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "BasePawn.h"
-#include "InputAction.h"
 #include "Tank.generated.h"
 
 class UCameraComponent;
@@ -20,12 +19,11 @@ class TOONTANKS_API ATank : public ABasePawn
 public:
 	ATank();
 	virtual void BeginPlay() override;
-	void DoMove(FVector2D Value);
-	void DoTurn(FVector2D Value);
+	void DoMove(const FVector2D* Value);
+	void DoTurn(const FVector2D* Value);
 
 //Functions
 protected:
-	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	
 // Variables
 private:
@@ -40,5 +38,4 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float TurnSpeed{100};
-	
 };

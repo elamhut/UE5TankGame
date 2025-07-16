@@ -23,28 +23,18 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ATank::DoMove(const FVector2D Value)
+void ATank::DoMove(const FVector2D* Value)
 {
-	const FVector DeltaLocation = FVector(Value.X, Value.Y, 0.f);
+	const FVector DeltaLocation = FVector(Value->X, Value->Y, 0.f);
 	const float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
 
 	AddActorLocalOffset(DeltaLocation * MoveSpeed * DeltaTime, true);
 }
 
-void ATank::DoTurn(const FVector2D Value)
+void ATank::DoTurn(const FVector2D* Value)
 {
-	const FRotator DeltaTurn = FRotator(0, Value.X, 0);
+	const FRotator DeltaTurn = FRotator(0, Value->X, 0);
 	const float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
-	
+
 	AddActorLocalRotation(DeltaTurn * TurnSpeed * DeltaTime, true);
-}
-
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	 // if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
-	 // {
-	 // 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &ATank::DoMove);
-	 // }
 }

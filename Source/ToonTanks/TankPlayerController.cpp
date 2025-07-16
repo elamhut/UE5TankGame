@@ -41,21 +41,39 @@ void ATankPlayerController::BeginPlay()
 	                                   ETriggerEvent::Triggered,
 	                                   this,
 	                                   &ATankPlayerController::HandleTurn);
+
+	EnhancedInputComponent->BindAction(RotateAction,
+								   ETriggerEvent::Triggered,
+								   this,
+								   &ATankPlayerController::HandleRotate);
 }
 
 void ATankPlayerController::PlayerTick(const float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
+
+
+	
 }
 
 void ATankPlayerController::HandleMove(const FInputActionValue& Value)
 {
 	const FVector2D MovementVector = Value.Get<FVector2D>();
-	TankPlayer->DoMove(MovementVector);
+	TankPlayer->DoMove(&MovementVector);
 }
 
 void ATankPlayerController::HandleTurn(const FInputActionValue& Value)
 {
 	const FVector2D TurnVector = Value.Get<FVector2D>();
-	TankPlayer->DoTurn(TurnVector);
+	TankPlayer->DoTurn(&TurnVector);
+}
+
+void ATankPlayerController::HandleRotate(const FInputActionValue& Value)
+{
+	FHitResult HitResult;
+	GetHitResultUnderCursor(ECC_WorldStatic, false, HitResult);
+	DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.f, 10, FColor::Cyan);
+	
+	TankPlayer->DoRotate(&HitResult.ImpactPoint);
+	UE_LOG(LogPlayerInput, Log, TEXT("Input is running?"));
 }
