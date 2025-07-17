@@ -17,6 +17,7 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
 	void DoRotate(const FVector* LookAtTarget);
+	void DoFire();
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,6 +26,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UStaticMeshComponent> TurretMesh;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USceneComponent> ProjectileSpawnPoint;
+	
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCapsuleComponent> CapsuleCollider;
@@ -32,8 +36,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UStaticMeshComponent> BaseMesh;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USceneComponent> ProjectileSpawnPoint;
 
 public:	
 	// Called every frame

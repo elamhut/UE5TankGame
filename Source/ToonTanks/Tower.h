@@ -20,17 +20,20 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	void AimTurret() const;
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 private:
 	TObjectPtr<ATank> PlayerTank;
 
 	UPROPERTY(EditAnywhere)
-	float FireRange{50};
+	float FireRange{1000};
+
+	FTimerHandle FireRateTimerHandle;
+	float FireRate = 2.f;
+	void CheckFireCondition();
+	bool InFireRange() const;
 };

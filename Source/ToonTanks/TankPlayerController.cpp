@@ -43,17 +43,19 @@ void ATankPlayerController::BeginPlay()
 	                                   &ATankPlayerController::HandleTurn);
 
 	EnhancedInputComponent->BindAction(RotateAction,
-								   ETriggerEvent::Triggered,
-								   this,
-								   &ATankPlayerController::HandleRotate);
+	                                   ETriggerEvent::Triggered,
+	                                   this,
+	                                   &ATankPlayerController::HandleRotate);
+
+	EnhancedInputComponent->BindAction(FireAction,
+	                                   ETriggerEvent::Started,
+	                                   this,
+	                                   &ATankPlayerController::HandleFire);
 }
 
 void ATankPlayerController::PlayerTick(const float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
-
-
-	
 }
 
 void ATankPlayerController::HandleMove(const FInputActionValue& Value)
@@ -73,7 +75,11 @@ void ATankPlayerController::HandleRotate(const FInputActionValue& Value)
 	FHitResult HitResult;
 	GetHitResultUnderCursor(ECC_WorldStatic, false, HitResult);
 	DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.f, 10, FColor::Cyan);
-	
+
 	TankPlayer->DoRotate(&HitResult.ImpactPoint);
-	UE_LOG(LogPlayerInput, Log, TEXT("Input is running?"));
+}
+
+void ATankPlayerController::HandleFire()
+{
+	TankPlayer->DoFire();
 }

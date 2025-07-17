@@ -43,6 +43,11 @@ void ABasePawn::DoRotate(const FVector* LookAtTarget)
 	);
 }
 
+void ABasePawn::DoFire()
+{
+	DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(), 10.f, 12, FColor::Red, false, 1.f);
+}
+
 // Called every frame
 void ABasePawn::Tick(float DeltaTime)
 {

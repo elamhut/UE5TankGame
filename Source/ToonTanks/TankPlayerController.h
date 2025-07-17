@@ -25,6 +25,8 @@ protected:
 	void HandleMove(const FInputActionValue& Value);
 	void HandleTurn(const FInputActionValue& Value);
 	void HandleRotate(const FInputActionValue& Value);
+	void HandleFire();
+	
 
 private:
 	UPROPERTY(EditDefaultsOnly)

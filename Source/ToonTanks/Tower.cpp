@@ -21,6 +21,16 @@ void ATower::BeginPlay()
 
 	PlayerTank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	checkf(PlayerTank, TEXT("Couldn't get Pawn of type ATank in the Tower"));
+
+	GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &ATower::CheckFireCondition, FireRate, true);
+}
+
+void ATower::AimTurret() const
+{
+	const FVector TargetDirection = PlayerTank->GetActorLocation() - GetActorLocation();
+	const FRotator LookAt = TargetDirection.Rotation();
+	TurretMesh->SetWorldRotation(LookAt,
+	                             false);
 }
 
 // Called every frame
@@ -28,24 +38,31 @@ void ATower::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (PlayerTank)
+	if (InFireRange())
 	{
-		const FVector ActorLocation = GetActorLocation();
-		const FVector PlayerTankLocation = PlayerTank->GetActorLocation();
-		const float Distance = FVector::Dist(ActorLocation, PlayerTankLocation);
-		
-		if (Distance <= FireRange)
-		{
-			const FVector TargetDirection = PlayerTankLocation - ActorLocation;
-			const FRotator LookAt = TargetDirection.Rotation();
-			TurretMesh->SetWorldRotation(LookAt,
-			                             false);
-		}
+		AimTurret();
 	}
 }
 
-// Called to bind functionality to input
-void ATower::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ATower::CheckFireCondition()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	if (InFireRange())
+	{
+		DoFire();
+	}
+}
+
+bool ATower::InFireRange() const
+{
+	if (PlayerTank)
+	{
+		const float Distance = FVector::Dist(GetActorLocation(), PlayerTank->GetActorLocation());
+
+		if (Distance <= FireRange)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

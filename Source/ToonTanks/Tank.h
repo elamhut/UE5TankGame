@@ -22,10 +22,9 @@ public:
 	void DoMove(const FVector2D* Value);
 	void DoTurn(const FVector2D* Value);
 
-//Functions
+	//Functions
 protected:
-	
-// Variables
+	// Variables
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Tank Settings", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
