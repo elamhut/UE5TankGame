@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "BasePawn.generated.h"
 
+class AProjectile;
 class UCapsuleComponent;
 
 UCLASS()
@@ -36,6 +37,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UStaticMeshComponent> BaseMesh;
 
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	TSubclassOf<AProjectile> Projectile;
 
 public:	
 	// Called every frame

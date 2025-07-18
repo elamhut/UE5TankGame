@@ -3,6 +3,7 @@
 
 #include "BasePawn.h"
 
+#include "Projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -45,7 +46,11 @@ void ABasePawn::DoRotate(const FVector* LookAtTarget)
 
 void ABasePawn::DoFire()
 {
-	DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(), 10.f, 12, FColor::Red, false, 1.f);
+	UWorld* World = GetWorld();
+	const auto SpawnedProjectile = World->SpawnActor<AProjectile>(Projectile,
+	                                                              ProjectileSpawnPoint->GetComponentLocation(),
+	                                                              ProjectileSpawnPoint->GetComponentRotation());
+	SpawnedProjectile->SetOwner(this);
 }
 
 // Called every frame
