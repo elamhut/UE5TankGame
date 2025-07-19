@@ -38,3 +38,8 @@ void ATank::DoTurn(const FVector2D* Value)
 
 	AddActorLocalRotation(DeltaTurn * TurnSpeed * DeltaTime, true);
 }
+
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+}

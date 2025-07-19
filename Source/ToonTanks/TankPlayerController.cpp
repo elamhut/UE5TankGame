@@ -15,6 +15,19 @@ ATankPlayerController::ATankPlayerController()
 	return;
 }
 
+void ATankPlayerController::SetPlayerEnabledState(const bool bIsPlayerEnabled)
+{
+	if (bIsPlayerEnabled)
+	{
+		EnableInput(this);
+	}
+	else
+	{
+		DisableInput(this);
+	}
+	bShowMouseCursor = bIsPlayerEnabled;
+}
+
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -51,6 +64,8 @@ void ATankPlayerController::BeginPlay()
 	                                   ETriggerEvent::Started,
 	                                   this,
 	                                   &ATankPlayerController::HandleFire);
+
+	UE_LOG(LogTemp, Warning, TEXT("This Player Controller: %s"), *GetName());
 }
 
 void ATankPlayerController::PlayerTick(const float DeltaTime)

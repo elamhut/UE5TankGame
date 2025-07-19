@@ -21,12 +21,22 @@ ABasePawn::ABasePawn()
 	TurretMesh->SetupAttachment(BaseMesh);
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 }
 
 // Called when the game starts or when spawned
 void ABasePawn::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ABasePawn::HandleDestruction()
+{
+	//TODO: Visual and Sound Effects implementation, bitch.
+	UE_LOG(LogTemp, Warning, TEXT("DED y.y %s"), *this->GetActorNameOrLabel());
+	
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
 }
 
 void ABasePawn::DoRotate(const FVector* LookAtTarget)

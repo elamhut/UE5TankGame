@@ -44,6 +44,13 @@ void ATower::Tick(const float DeltaTime)
 	}
 }
 
+void ATower::HandleDestruction()
+{
+	Super::HandleDestruction();
+
+	GetWorldTimerManager().ClearTimer(FireRateTimerHandle);
+}
+
 void ATower::CheckFireCondition()
 {
 	if (InFireRange())

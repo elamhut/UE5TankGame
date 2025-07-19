@@ -21,7 +21,7 @@ public:
 	virtual void BeginPlay() override;
 	void DoMove(const FVector2D* Value);
 	void DoTurn(const FVector2D* Value);
-
+	virtual void HandleDestruction() override;
 	//Functions
 protected:
 	// Variables

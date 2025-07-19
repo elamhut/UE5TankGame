@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "HealthComponent.h"
 #include "GameFramework/Pawn.h"
 #include "BasePawn.generated.h"
 
@@ -17,9 +18,12 @@ class TOONTANKS_API ABasePawn : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
+
+	virtual void Tick(float DeltaTime) override;
 	void DoRotate(const FVector* LookAtTarget);
 	void DoFire();
-
+	virtual void HandleDestruction();
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,7 +44,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	TSubclassOf<AProjectile> Projectile;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UHealthComponent> HealthComponent;
+
 };

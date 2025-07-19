@@ -17,14 +17,13 @@ public:
 	// Sets default values for this pawn's properties
 	ATower();
 
+	virtual void Tick(float DeltaTime) override;
+	virtual void HandleDestruction() override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	void AimTurret() const;
-
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 private:
 	TObjectPtr<ATank> PlayerTank;

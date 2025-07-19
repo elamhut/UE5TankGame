@@ -19,6 +19,8 @@ class TOONTANKS_API ATankPlayerController : public APlayerController
 public:
 	ATankPlayerController();
 
+	void SetPlayerEnabledState(bool bIsPlayerEnabled);
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void PlayerTick(float DeltaTime) override;
@@ -50,5 +52,5 @@ private:
 	UPROPERTY()
 	TObjectPtr<ATank> TankPlayer;
 
-	
+	bool bPlayerEnabled;
 };
