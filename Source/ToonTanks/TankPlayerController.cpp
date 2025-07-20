@@ -25,7 +25,6 @@ void ATankPlayerController::SetPlayerEnabledState(const bool bIsPlayerEnabled)
 	{
 		DisableInput(this);
 	}
-	bShowMouseCursor = bIsPlayerEnabled;
 }
 
 void ATankPlayerController::BeginPlay()

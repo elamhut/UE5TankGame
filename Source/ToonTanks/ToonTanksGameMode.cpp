@@ -8,7 +8,7 @@
 #include "Tower.h"
 #include "Kismet/GameplayStatics.h"
 
-void AToonTanksGameMode::ActorDeath(AActor* DeadActor) const
+void AToonTanksGameMode::ActorDeath(AActor* DeadActor)
 {
 	if (DeadActor == Tank)
 	{
@@ -18,10 +18,15 @@ void AToonTanksGameMode::ActorDeath(AActor* DeadActor) const
 		{
 			TankPlayerController->SetPlayerEnabledState(false);
 		}
+		GameOver(false);
 	}
 	else if (const auto DestroyedTower = Cast<ATower>(DeadActor))
 	{
 		DestroyedTower->HandleDestruction();
+		
+		TargetTowers--;
+		if (TargetTowers == 0)
+			GameOver(true);
 	}
 }
 
@@ -34,9 +39,13 @@ void AToonTanksGameMode::BeginPlay()
 
 void AToonTanksGameMode::HandleGameStart()
 {
+	TargetTowers = GetTargetTowerCount();
+	UE_LOG(LogTemp, Warning, TEXT("NUMBER OF TOWERS: %i"), TargetTowers);
 	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
 	TankPlayerController = Cast<ATankPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 
+	StartGame();
+	
 	if (TankPlayerController)
 	{
 		TankPlayerController->SetPlayerEnabledState(false);
@@ -51,4 +60,12 @@ void AToonTanksGameMode::HandleGameStart()
 		                                StartDelay,
 		                                false);
 	}
+}
+
+int32 AToonTanksGameMode::GetTargetTowerCount()
+{
+	TArray<AActor*> AllTowers;
+	UGameplayStatics::GetAllActorsOfClass(this, ATower::StaticClass(), AllTowers);
+
+	return AllTowers.Num();
 }
