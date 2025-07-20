@@ -25,6 +25,7 @@ void AToonTanksGameMode::ActorDeath(AActor* DeadActor)
 		DestroyedTower->HandleDestruction();
 		
 		TargetTowers--;
+		UE_LOG(LogGameMode, Warning, TEXT("Total Tower RN: %i"), TargetTowers);
 		if (TargetTowers == 0)
 			GameOver(true);
 	}

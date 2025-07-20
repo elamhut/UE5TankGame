@@ -37,6 +37,21 @@ private:
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovementComponent;
 
 	UPROPERTY(EditAnywhere)
+	TObjectPtr<UParticleSystem> HitParticles;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UParticleSystemComponent> TrailParticles;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> LaunchSound;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> HitSound;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UCameraShakeBase> HitCameraShakeClass;
+
+	UPROPERTY(EditAnywhere)
 	float ProjectileInitialSpeed{20.f};
 
 	UPROPERTY(EditAnywhere)
@@ -44,4 +59,5 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float Damage{20.f};
+	
 };

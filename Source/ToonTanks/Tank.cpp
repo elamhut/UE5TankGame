@@ -42,4 +42,5 @@ void ATank::DoTurn(const FVector2D* Value)
 void ATank::HandleDestruction()
 {
 	Super::HandleDestruction();
+	this->Destroy();
 }

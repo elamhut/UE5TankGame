@@ -3,10 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "HealthComponent.h"
 #include "GameFramework/Pawn.h"
 #include "BasePawn.generated.h"
 
+class UHealthComponent;
 class AProjectile;
 class UCapsuleComponent;
 
@@ -33,6 +33,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USceneComponent> ProjectileSpawnPoint;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UParticleSystem> ExplosionParticles;
 	
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Pawn Settings", meta = (AllowPrivateAccess = "true"))
@@ -47,4 +50,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UHealthComponent> HealthComponent;
 
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> DeathSound;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UCameraShakeBase> DeathCameraShakeClass;
 };

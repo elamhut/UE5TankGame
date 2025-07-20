@@ -3,6 +3,7 @@
 
 #include "BasePawn.h"
 
+#include "HealthComponent.h"
 #include "Projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -29,14 +30,15 @@ void ABasePawn::BeginPlay()
 {
 	Super::BeginPlay();
 }
-
+	
 void ABasePawn::HandleDestruction()
 {
-	//TODO: Visual and Sound Effects implementation, bitch.
-	UE_LOG(LogTemp, Warning, TEXT("DED y.y %s"), *this->GetActorNameOrLabel());
-	
-	SetActorHiddenInGame(true);
-	SetActorTickEnabled(false);
+	if (ExplosionParticles)
+		UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionParticles, GetActorLocation(), GetActorRotation());
+	if (DeathSound)
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation(), GetActorRotation());
+	if (DeathCameraShakeClass)
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(DeathCameraShakeClass);
 }
 
 void ABasePawn::DoRotate(const FVector* LookAtTarget)

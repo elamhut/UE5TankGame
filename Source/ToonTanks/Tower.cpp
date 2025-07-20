@@ -49,6 +49,7 @@ void ATower::HandleDestruction()
 	Super::HandleDestruction();
 
 	GetWorldTimerManager().ClearTimer(FireRateTimerHandle);
+	this->Destroy();
 }
 
 void ATower::CheckFireCondition()
